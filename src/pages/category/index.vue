@@ -1,12 +1,18 @@
 <template>
   <view>
-    分类页面    
+    <!-- 顶部导航 -->
+    <search/>
   </view>
 </template>
 <script>
+import search from '@/components/search'
+
 export default {
   data () {
     return {}
+  },
+  components: {
+    search
   }
 }
 </script>
