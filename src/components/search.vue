@@ -34,8 +34,10 @@ export default {
   .input-box {
     background-color: #FF2D4A;
     padding: 20rpx 16rpx;
+    display: flex;
     input {
       background-color: #fff;
+      flex: 1;
     }
     .cancel {
       display: none;
@@ -47,6 +49,11 @@ export default {
     }
     .cancel {
       display: block;
+      width: 100rpx;
+      height: 50rpx;
+      line-height: 50rpx;
+      text-align: center;
+      font-size: 30rpx;
     }
   }
 }
