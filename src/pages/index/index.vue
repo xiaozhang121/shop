@@ -41,19 +41,21 @@
 	}
 </script>
 
-<style>
-.search .input-box {
-	background-color: #FF2D4A;
-	padding: 20rpx 16rpx;
-}
-.search .input-box input {
-	background-color: #fff;
+<style lang='less'>
+.search {
+	.input-box {
+		background-color: #FF2D4A;
+	  padding: 20rpx 16rpx;
+	  input {
+			background-color: #fff;
+		}
+	}
 }
 swiper {
 	height: 340rpx;
-}
-swiper image {
-	width: 750rpx;
-	height: 340rpx;
+	image {
+		width: 750rpx;
+		height: 340rpx;
+	}
 }
 </style>
