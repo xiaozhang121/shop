@@ -1,8 +1,8 @@
 <template>
-  <view class="search">
+  <view class="search" :class='{focused: isFocused}'>
     <!-- 搜索栏标签 -->
     <view class="input-box">
-      <input type="text" />
+      <input type="text" @focus='goSearch'/>
     </view>
     <!-- 搜索的结果 -->
     <view class="content"></view>
@@ -11,7 +11,16 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      isFocused: false
+    }
+  },
+  methods: {
+    goSearch () {
+      console.log('hello')
+      // 当输入框获取焦点时，在父元素添加一个类名 focused
+      this.isFocused = true
+    }
   }
 }
 </script>
@@ -24,5 +33,11 @@ export default {
       background-color: #fff;
     }
   }
+  &.focused {
+    .input-box {
+      background-color: #eee;
+    }
+  }
 }
+
 </style>
