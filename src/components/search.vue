@@ -34,6 +34,16 @@ export default {
 </script>
 <style lang="less">
 .search {
+  .content {
+    position: absolute;
+    top: 95rpx;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    background-color: #fff;
+    display: none;
+  }
   .input-box {
     background-color: #FF2D4A;
     padding: 20rpx 16rpx;
@@ -42,6 +52,7 @@ export default {
     input {
       background-color: #fff;
       padding-left: 55rpx;
+      height: 60rpx;
       flex: 1;
     }
     .cancel {
@@ -73,9 +84,11 @@ export default {
       background-size: 32rpx;
       background-repeat: no-repeat;
     }
-
   }
   &.focused {
+    .content {
+      display: block;
+    }
     .input-box {
       background-color: #eee;
       &::after {
