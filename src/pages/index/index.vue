@@ -61,6 +61,8 @@
 			},
 			querySwiperData () {
 				// 获取轮播图数据
+				this.$request()
+				
 				wx.request({
 					url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/swiperdata',
 					success: (res) => {

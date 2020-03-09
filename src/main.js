@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import App from './App'
+// import request from '@/utils/request.js'
+// const plugin = request()
+import plugin from '@/utils/request.js'
+Vue.use(plugin)
 
 Vue.config.productionTip = false
 
