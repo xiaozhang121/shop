@@ -73,23 +73,31 @@
 				// 	}
 				// })
 			},
-			queryNavsData () {
+			async queryNavsData () {
 				// 获取导航菜单数据
-				wx.request({
-					url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/catitems',
-					success: (res) => {
-						this.navsData = res.data.message
-					}
+				const { message } = await this.$request({
+					path: 'home/catitems'
 				})
+				this.navsData = message
+				// wx.request({
+				// 	url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/catitems',
+				// 	success: (res) => {
+				// 		this.navsData = res.data.message
+				// 	}
+				// })
 			},
-			queryFloorData () {
+			async queryFloorData () {
 				// 获取导航菜单数据
-				wx.request({
-					url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/floordata',
-					success: (res) => {
-						this.floorData = res.data.message
-					}
+				const { message } = await this.$request({
+					path: 'home/floordata'
 				})
+				this.floorData = message
+				// wx.request({
+				// 	url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/floordata',
+				// 	success: (res) => {
+				// 		this.floorData = res.data.message
+				// 	}
+				// })
 			}
 		}
 	}
