@@ -1,7 +1,7 @@
 <template>
-	<view class="container">
+	<view class="container" :style='{height: pageHeight, overflow: "hidden"}'>
 		<!-- 搜索栏 -->
-		<search/>
+		<search @window-height='handleWindowHeight'/>
 
 		<!-- 轮播图 -->
 		<swiper indicator-dots>
@@ -115,7 +115,8 @@
 	export default {
 		data() {
 			return {
-				title: 'Nihao'
+				title: 'Nihao',
+				pageHeight: 'auto'
 			}
 		},
 		components: {
@@ -125,7 +126,9 @@
 
 		},
 		methods: {
-
+			handleWindowHeight (data) {
+				this.pageHeight = data.height + 'px'
+			}
 		}
 	}
 </script>
