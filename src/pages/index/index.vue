@@ -59,16 +59,19 @@
 			handleWindowHeight (data) {
 				this.pageHeight = data.height + 'px'
 			},
-			querySwiperData () {
+			async querySwiperData () {
 				// 获取轮播图数据
-				this.$request()
-				
-				wx.request({
-					url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/swiperdata',
-					success: (res) => {
-						this.swiperData = res.data.message
-					}
+				const {message} = await this.$request({
+					path: 'home/swiperdata'
 				})
+				this.swiperData = message
+				
+				// wx.request({
+				// 	url: 'https://api-ugo-dev.itheima.net/api/public/v1/home/swiperdata',
+				// 	success: (res) => {
+				// 		this.swiperData = res.data.message
+				// 	}
+				// })
 			},
 			queryNavsData () {
 				// 获取导航菜单数据

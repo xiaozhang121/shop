@@ -2,8 +2,13 @@ import Vue from 'vue'
 import App from './App'
 // import request from '@/utils/request.js'
 // const plugin = request()
-import plugin from '@/utils/request.js'
-Vue.use(plugin)
+// Vue.use(plugin)
+
+import MyPlugin from '@/utils/request.js'
+Vue.use(MyPlugin, {
+  // 后台接口的基准路径
+  baseURL: 'https://api-ugo-dev.itheima.net/api/public/v1/'
+})
 
 Vue.config.productionTip = false
 
