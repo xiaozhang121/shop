@@ -28,9 +28,7 @@ export default {
       })
       // 返回异步接口的结果
       // 隐藏提示
-      setTimeout(() => {
-        uni.hideLoading()
-      }, 3000)
+      uni.hideLoading()
       return res.data
     }
   }

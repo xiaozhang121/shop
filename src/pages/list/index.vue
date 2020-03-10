@@ -8,7 +8,7 @@
     </view>
     <!-- 商品列表 -->
     <scroll-view class="goods" scroll-y @scrolltolower='reachBottom'>
-      <view :key='item.goods_id' v-for='item in goods' class="item" @click="goDetail">
+      <view :key='item.goods_id' v-for='item in goods' class="item" @click="goDetail(item.goods_id)">
         <!-- 商品图片 -->
         <image class="pic" :src="item.goods_small_logo"></image>
         <!-- 商品信息 -->
@@ -89,9 +89,10 @@
         // 接口返回数据后，允许再次发送请求
         this.loaded = false
       },
-      goDetail () {
+      goDetail (id) {
+        console.log(id)
         uni.navigateTo({
-          url: '/pages/goods/index'
+          url: '/pages/goods/index?id=' + id
         })
       }
     }
