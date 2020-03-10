@@ -14,13 +14,13 @@
       </div>
       <!-- 搜索历史关键字 -->
       <div class="history">
-        <navigator url='' :key='index' v-for='(item, index) in history'>
+        <navigator :url="'/pages/list/index?kw=' + item" :key='index' v-for='(item, index) in history'>
           {{item}}
         </navigator>
       </div>
       <!-- 搜索结果 -->
       <scroll-view v-if='qlist.length>0' scroll-y class="result">
-        <navigator url='' :key='item.goods_id' v-for='item in qlist'>
+        <navigator url="" :key='item.goods_id' v-for='item in qlist'>
           {{item.goods_name}}
         </navigator>
       </scroll-view>
@@ -59,6 +59,10 @@ export default {
       this.history = arr
       // 把当前的历史关键字进行缓存
       uni.setStorageSync('history', arr)
+      // 回车时跳转到商品列表页面
+      uni.navigateTo({
+        url: '/pages/list/index?kw=' + v
+      })
     },
     handleQuery () {
       // 通过函数防抖的方式限制接口调用的频率
