@@ -2,7 +2,7 @@
   <view class="search" :class='{focused: isFocused}'>
     <!-- 搜索栏标签 -->
     <view class="input-box">
-      <input v-model='keywork' @input='handleQuery' :placeholder='placeholder' type="text" @focus='goSearch'/>
+      <input @confirm='handleEnter' v-model='keyword' @input='handleQuery' :placeholder='placeholder' type="text" @focus='goSearch'/>
       <text class='cancel' @click='handleCancel'>取消</text>
     </view>
     <!-- 搜索的结果 -->
@@ -14,12 +14,12 @@
       </div>
       <!-- 搜索历史关键字 -->
       <div class="history">
-        <navigator url=''>小米</navigator>
-        <navigator url=''>华为</navigator>
-        <navigator url=''>苹果</navigator>
+        <navigator url='' :key='index' v-for='(item, index) in history'>
+          {{item}}
+        </navigator>
       </div>
       <!-- 搜索结果 -->
-      <scroll-view scroll-y class="result">
+      <scroll-view v-if='qlist.length>0' scroll-y class="result">
         <navigator url='' :key='item.goods_id' v-for='item in qlist'>
           {{item.goods_name}}
         </navigator>
@@ -33,15 +33,29 @@ export default {
     return {
       isFocused: false,
       placeholder: '',
-      keywork: '',
-      qlist: []
+      keyword: '',
+      qlist: [],
+      // 缓存历史关键字：先查询之前的搜索历史，如果没有查到，默认为[]
+      history: uni.getStorageSync('history') || []
     }
   },
   methods: {
+    handleEnter (e) {
+      // 监听回车事件
+      // 获取输入框最新的值
+      let v = e.detail.value
+      this.history.unshift(v)
+      // 控制数组的去重操作
+      let arr = [...new Set(this.history)]
+      // 更新状态
+      this.history = arr
+      // 把当前的历史关键字进行缓存
+      uni.setStorageSync('history', arr)
+    },
     async handleQuery () {
       // 根据关键字调用后台接口查询商品列表
       const {message} = await this.$request({
-        path: 'goods/qsearch?query=' + this.keywork
+        path: 'goods/qsearch?query=' + this.keyword
       })
       this.qlist = message
     },
@@ -58,7 +72,12 @@ export default {
       this.$emit('window-height', {height: 'auto'})
       // 取消动作：恢复原始状态
       this.isFocused = false
+      // 清空提示信息
       this.placeholder = ''
+      // 清除关键字
+      this.keyword = ''
+      // 清空搜索结果
+      this.qlist = []
     }
   }
 }
