@@ -74,6 +74,8 @@
           }
         })
         // 对于分页来说应该做累加操作
+        // this.goods.push(...message.goods)
+        // this.goods = this.goods.concat(message.goods)
         this.goods = [...this.goods, ...message.goods]
         this.total = message.total
       },
