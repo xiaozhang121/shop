@@ -55,6 +55,9 @@
 		components: {
 			search
 		},
+		onReachBottom () {
+			console.log('页面滚动到了底部')
+		},
 		onPageScroll (e) {
 			// 监听页面的滚动，获取当前滚动的距离
 			this.scrollTop = e.scrollTop

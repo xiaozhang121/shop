@@ -7,7 +7,7 @@
       <text>价格</text>
     </view>
     <!-- 商品列表 -->
-    <scroll-view class="goods" scroll-y>
+    <scroll-view class="goods" scroll-y @scrolltolower='reachBottom'>
       <view :key='item.goods_id' v-for='item in goods' class="item" @click="goDetail">
         <!-- 商品图片 -->
         <image class="pic" :src="item.goods_small_logo"></image>
@@ -39,7 +39,13 @@
       // this.kw = param.kw
       this.loadData(param.kw)
     },
+    onReachBottom () {
+      console.log('页面滚动到了底部！！！')
+    },
     methods: {
+      reachBottom () {
+        console.log('列表区域已经触底')
+      },
       async loadData (kw) {
         // 根据关键字查询商品列表
         const {message} = await this.$request({
