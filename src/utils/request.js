@@ -17,8 +17,8 @@ export default {
     Vue.prototype.$request = async ({path, param}) => {
       // 实现发送请求
       uni.showLoading({
-        title: '正在加载数据...',
-        mask: true
+        title: '正在加载数据...'
+        // mask: true
       })
       // uni-app对部分小程序原生API进行了封装，可以支持Promise
       const [error, res] = await uni.request({

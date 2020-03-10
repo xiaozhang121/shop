@@ -36,7 +36,9 @@
         // 当前查询的页码
         pagenum: 1,
         // 每页查询多少条
-        pagesize: 5
+        pagesize: 5,
+        // 接口调用状态位
+        loaded: false
       }
     },
     onLoad (param) {
@@ -64,6 +66,12 @@
       },
       async loadData (kw) {
         // 根据关键字查询商品列表
+        if (this.loaded) {
+          // 如果接口尚未返回数据，就阻止后续的请求
+          return
+        }
+        // 表示接口正在发送请求，但是尚未返回结果
+        this.loaded = true
         const {message} = await this.$request({
           // path: 'goods/search?pagenum=2&pagesize=5&query=' + kw,
           path: 'goods/search',
@@ -78,6 +86,8 @@
         // this.goods = this.goods.concat(message.goods)
         this.goods = [...this.goods, ...message.goods]
         this.total = message.total
+        // 接口返回数据后，允许再次发送请求
+        this.loaded = false
       },
       goDetail () {
         uni.navigateTo({
