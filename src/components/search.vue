@@ -2,7 +2,7 @@
   <view class="search" :class='{focused: isFocused}'>
     <!-- 搜索栏标签 -->
     <view class="input-box">
-      <input :placeholder='placeholder' type="text" @focus='goSearch'/>
+      <input v-model='keywork' @input='handleQuery' :placeholder='placeholder' type="text" @focus='goSearch'/>
       <text class='cancel' @click='handleCancel'>取消</text>
     </view>
     <!-- 搜索的结果 -->
@@ -19,9 +19,11 @@
         <navigator url=''>苹果</navigator>
       </div>
       <!-- 搜索结果 -->
-      <!-- <scroll-view scroll-y class="result">
-        <navigator url=''>冰箱</navigator>
-      </scroll-view> -->
+      <scroll-view scroll-y class="result">
+        <navigator url='' :key='item.goods_id' v-for='item in qlist'>
+          {{item.goods_name}}
+        </navigator>
+      </scroll-view>
     </view>
   </view>
 </template>
@@ -30,10 +32,19 @@ export default {
   data () {
     return {
       isFocused: false,
-      placeholder: ''
+      placeholder: '',
+      keywork: '',
+      qlist: []
     }
   },
   methods: {
+    async handleQuery () {
+      // 根据关键字调用后台接口查询商品列表
+      const {message} = await this.$request({
+        path: 'goods/qsearch?query=' + this.keywork
+      })
+      this.qlist = message
+    },
     goSearch () {
       const { windowHeight } = uni.getSystemInfoSync()
       // 将可视区高度传递到父组件
@@ -88,6 +99,24 @@ export default {
         margin-right: 20rpx;
         margin-bottom: 15rpx;
         color: #333;
+      }
+    }
+    .result {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #fff;
+      navigator {
+        line-height: 1;
+        padding: 20rpx 30rpx;
+        font-size: 24rpx;
+        color: #666;
+        border-bottom: 1px solid #eee;
+        &:last-child {
+          border-bottom: none;
+        }
       }
     }
   }
