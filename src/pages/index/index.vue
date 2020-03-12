@@ -89,7 +89,6 @@
 					item.navigator_url = item.navigator_url.replace('goods_detail/main?goods_id', 'goods/index?id')
 					return item
 				})
-				console.log(message)
 				this.swiperData = message
 				
 				// wx.request({
