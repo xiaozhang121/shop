@@ -9,7 +9,7 @@
     <view class="content">
       <!-- 标题 -->
       <div class="title">
-        搜索历史1
+        搜索历史
         <span class="clear" @click='handleClear'></span>
       </div>
       <!-- 搜索历史关键字 -->
