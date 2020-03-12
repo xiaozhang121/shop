@@ -68,7 +68,7 @@
           return item.goods_id === this.goods.goods_id
         })
         if (isExist) {
-          // 已经存在该商品
+          // 已经存在该商品，需要累加商品的数量
           this.cart.some(item => {
             if (item.goods_id === this.goods.goods_id) {
               // 修改当前商品的数据
