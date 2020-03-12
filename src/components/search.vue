@@ -20,7 +20,7 @@
       </div>
       <!-- 搜索结果 -->
       <scroll-view v-if='qlist.length>0' scroll-y class="result">
-        <navigator url="" :key='item.goods_id' v-for='item in qlist'>
+        <navigator :url="'/pages/goods/index?id='+item.goods_id" :key='item.goods_id' v-for='item in qlist'>
           {{item.goods_name}}
         </navigator>
       </scroll-view>

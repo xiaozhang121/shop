@@ -6,7 +6,9 @@
 		<!-- 轮播图 -->
 		<swiper indicator-dots>
 			<swiper-item :key='item.goods_id' v-for='item in swiperData'>
-				<image :src='item.image_src'/>
+				<navigator :url='item.navigator_url'>
+					<image :src='item.image_src'/>
+				</navigator>
 			</swiper-item>
 		</swiper>
 
@@ -79,9 +81,15 @@
 			},
 			async querySwiperData () {
 				// 获取轮播图数据
-				const {message} = await this.$request({
+				let {message} = await this.$request({
 					path: 'home/swiperdata'
 				})
+				// 加工处理跳转路径
+				message = message.map(item => {
+					item.navigator_url = item.navigator_url.replace('goods_detail/main?goods_id', 'goods/index?id')
+					return item
+				})
+				console.log(message)
 				this.swiperData = message
 				
 				// wx.request({
