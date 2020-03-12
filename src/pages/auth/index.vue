@@ -18,6 +18,12 @@ export default {
         signature
       } = e.detail
       //2、获取code
+      uni.login({
+        success: (res) => {
+          // 获取code之后，可以组合上述4个属性，进而调用接口进行登录
+          const { code } = res
+        }
+      })
 
       //3、调用后台接口获取token信息
 
