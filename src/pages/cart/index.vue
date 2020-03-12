@@ -15,7 +15,7 @@
       <view class="item">
         <!-- 店铺名称 -->
         <view class="shopname">优购生活馆</view>
-        <view :key='item.goods_id' v-for='item in cart' class="goods">
+        <view :key='item.goods_id' v-for='(item, index) in cart' class="goods">
           <!-- 商品图片 -->
           <image class="pic" :src="item.goods_img"></image>
           <!-- 商品信息 -->
@@ -26,9 +26,9 @@
             </view>
             <!-- 加减 -->
             <view class="amount">
-              <text class="reduce">-</text>
+              <text class="reduce" @click='changeNum(index, -1)'>-</text>
               <input type="number" :value="item.goods_num" class="number">
-              <text class="plus">+</text>
+              <text class="plus" @click='changeNum(index, 1)'>+</text>
             </view>
           </view>
           <!-- 选框 -->
@@ -57,6 +57,22 @@
     data () {
       return {
         cart: []
+      }
+    },
+    methods: {
+      changeNum (index, n) {
+        // 修改购物车商品的数量
+        // 商品数量最少为1
+        if (n === -1 && this.cart[index].goods_num <= 1) {
+          return
+        } 
+        // 商品数量不能超过库存
+        if (n === 1 && this.cart[index].goods_num > 5) {
+          return
+        } 
+        this.cart[index].goods_num += n
+        // 把修改后的数据从新同步到缓存
+        uni.setStorageSync('mycart', this.cart)
       }
     },
     onShow () {
