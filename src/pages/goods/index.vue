@@ -15,8 +15,8 @@
     </view>
     <!-- 商品详情 -->
     <view class="detail">
-      <view v-html='goods.goods_introduce'></view>
-      <!-- <rich-text :nodes='goods.goods_introduce'></rich-text> -->
+      <view :style='{fontSize: 0}' v-html='goods.goods_introduce'></view>
+      <!-- <rich-text :style='{fontSize: 0}' :nodes='goods.goods_introduce'></rich-text> -->
     </view>
     <!-- 操作 -->
     <view class="action">
@@ -116,6 +116,20 @@
 </script>
 
 <style scoped lang="less">
+  .lazyimg {
+    background-color: pink;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      margin: 0;
+      padding: 0;
+    }
+    image {
+      vertical-align: middle;
+    }
+  }
   .wrapper {
     margin-bottom: 100rpx;
     background-color: #f4f4f4;
@@ -182,6 +196,7 @@
     width: 100%;
     height: 480rpx;
     margin-top: 20rpx;
+    background-color: blue;
   }
 
   .action {
