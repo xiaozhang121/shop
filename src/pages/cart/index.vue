@@ -75,9 +75,7 @@
         // 单价 * 数量 并 进行累加
         let total = 0
         this.checkedProducts.forEach(item => {
-          if (item.goods_check) {
-            total += item.goods_price * item.goods_num
-          }
+          total += item.goods_price * item.goods_num
         })
         return total
       },
@@ -117,7 +115,7 @@
             url: '/pages/auth/index'
           })
         }
-        // 4、创建订单
+        // 4、登录成功后返回继续创建订单
 
       },
       getAddress () {
