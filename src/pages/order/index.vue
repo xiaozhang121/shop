@@ -30,6 +30,8 @@
         <view class="extra">
           订单号: {{item.order_number}}
           <button :data-id='item.order_number' @click='handlePay' size="mini" type="primary">支付</button>
+          <!-- 如下的代码结构在uni-app环境下不好使 -->
+          <!-- <button @click='handlePay(item.order_number)' size="mini" type="primary">支付</button> -->
         </view>
       </view>
     </scroll-view>
