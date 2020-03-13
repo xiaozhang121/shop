@@ -10,7 +10,7 @@
     <!-- 订单 -->
     <scroll-view class="orders" scroll-y>
       <view :key='item.goods_id' v-for='item in list' class="item">
-        <template :key='p.goods_id' v-for='p in item.goods'>
+        <template v-for='p in item.goods'>
           <!-- 商品图片 -->
           <image class="pic" :src="p.goods_small_logo"></image>
           <!-- 商品信息 -->
@@ -29,7 +29,7 @@
         <!-- 其它 -->
         <view class="extra">
           订单号: {{item.order_number}}
-          <button size="mini" type="primary">支付</button>
+          <button :data-id='item.order_number' @click='handlePay' size="mini" type="primary">支付</button>
         </view>
       </view>
     </scroll-view>
@@ -48,6 +48,30 @@
       this.allOrders()
     },
     methods: {
+      async handlePay (e) {
+        // 实现支付操作
+        // 1、调用接口请求实现付款
+        // console.log(e.target.dataset.id)
+        const { message } = await this.$request({
+          path: 'my/orders/req_unifiedorder',
+          method: 'post',
+          param: {
+            order_number: e.target.dataset.id
+          },
+          header: {
+            Authorization: uni.getStorageSync('mytoken')
+          }
+        })
+        // 2、用户确认进行付款
+        uni.requestPayment({
+          ...message.pay,
+          success: () => {
+            uni.showToast({
+              title: '支付成功'
+            })
+          }
+        })
+      },
       async allOrders () {
         // 获取所有订单数据
         const { message } = await this.$request({
