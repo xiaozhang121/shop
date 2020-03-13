@@ -99,7 +99,30 @@
 
 <script>
   export default {
-    
+    data () {
+      return {
+        // 所有的订单
+        list: []
+      }
+    },
+    onLoad () {
+      this.allOrders()
+    },
+    methods: {
+      async allOrders () {
+        // 获取所有订单数据
+        const { message } = await this.$request({
+          path: 'my/orders/all',
+          param: {
+            type: 1
+          },
+          header: {
+            Authorization: uni.getStorageSync('mytoken')
+          }
+        })
+        this.list = message.orders
+      }
+    }
   }
 </script>
 
