@@ -179,6 +179,8 @@
         if (n === 1 && this.cart[index].goods_num > 5) {
           return
         } 
+        console.log(index);
+        
         this.cart[index].goods_num += n
         // 把修改后的数据从新同步到缓存
         uni.setStorageSync('mycart', this.cart)

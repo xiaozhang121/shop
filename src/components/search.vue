@@ -1,28 +1,39 @@
 <template>
-  <view class="search" :class='{focused: isFocused}'>
+  <view class="search" :class="{focused: isFocused}">
     <!-- 搜索栏标签 -->
     <view class="input-box">
-      <input @confirm='handleEnter' v-model='keyword' @input='handleQuery' :placeholder='placeholder' type="text" @focus='goSearch'/>
-      <text class='cancel' @click='handleCancel'>取消</text>
+      <input
+        @confirm="handleEnter"
+        v-model="keyword"
+        @input="handleQuery"
+        :placeholder="placeholder"
+        type="text"
+        @focus="goSearch"
+      />
+      <text class="cancel" @click="handleCancel">取消</text>
     </view>
     <!-- 搜索的结果 -->
     <view class="content">
       <!-- 标题 -->
       <div class="title">
         搜索历史
-        <span class="clear" @click='handleClear'></span>
+        <span class="clear" @click="handleClear"></span>
       </div>
       <!-- 搜索历史关键字 -->
       <div class="history">
-        <navigator :url="'/pages/list/index?kw=' + item" :key='index' v-for='(item, index) in history'>
-          {{item}}
-        </navigator>
+        <navigator
+          :url="'/pages/list/index?kw=' + item"
+          :key="index"
+          v-for="(item, index) in history"
+        >{{item}}</navigator>
       </div>
       <!-- 搜索结果 -->
-      <scroll-view v-if='qlist.length>0' scroll-y class="result">
-        <navigator :url="'/pages/goods/index?id='+item.goods_id" :key='item.goods_id' v-for='item in qlist'>
-          {{item.goods_name}}
-        </navigator>
+      <scroll-view v-if="qlist.length>0" scroll-y class="result">
+        <navigator
+          :url="'/pages/goods/index?id='+item.goods_id"
+          :key="item.goods_id"
+          v-for="item in qlist"
+        >{{item.goods_name}}</navigator>
       </scroll-view>
     </view>
   </view>
@@ -69,7 +80,7 @@ export default {
       clearTimeout(this.timer)
       this.timer = setTimeout(async () => {
         // 根据关键字调用后台接口查询商品列表
-        const {message} = await this.$request({
+        const { message } = await this.$request({
           path: 'goods/qsearch?query=' + this.keyword
         })
         this.qlist = message
@@ -78,14 +89,14 @@ export default {
     goSearch () {
       const { windowHeight } = uni.getSystemInfoSync()
       // 将可视区高度传递到父组件
-      this.$emit('window-height', {height: windowHeight})
+      this.$emit('window-height', { height: windowHeight })
       // 当输入框获取焦点时，在父元素添加一个类名 focused
       this.isFocused = true
       this.placeholder = '请输入想要的商品'
     },
     handleCancel () {
       // 点击取消按钮恢复原始状态
-      this.$emit('window-height', {height: 'auto'})
+      this.$emit('window-height', { height: 'auto' })
       // 取消动作：恢复原始状态
       this.isFocused = false
       // 清空提示信息
@@ -156,7 +167,7 @@ export default {
     }
   }
   .input-box {
-    background-color: #FF2D4A;
+    background-color: #ff2d4a;
     padding: 20rpx 16rpx;
     display: flex;
     position: relative;
@@ -219,5 +230,4 @@ export default {
     }
   }
 }
-
 </style>
